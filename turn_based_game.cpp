@@ -1,7 +1,5 @@
 #include <iostream>
-#include <string>
 #include <print>
-#include <algorithm>
 #include <random>
 #include <ctime>
 #include <thread>
@@ -54,7 +52,7 @@ int main() {
 
         while (remaining_actions > 0) {
             std::print("Remaining actions: {}/2\nPlease select one of the following actions:\n[1] Attack\n[2] Buff\n[3] Heal\n[4] Check\n[5] End turn\n[-1] Exit Game\n\n>>> ", remaining_actions);
-            std::cin >> user_input;
+            std::cin >> user_input; // TODO: Add input sanitisation/validation
             player_action = static_cast<PlayerAction>(user_input);
 
             if (player_action == PlayerAction::Quit) {
