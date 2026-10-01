@@ -4,6 +4,7 @@
 #include <ctime>
 #include <thread>
 #include <chrono>
+#include <limits>
 
 #include "player.h"
 
@@ -45,14 +46,18 @@ int main() {
     cpu.stats();
 
     // Gameplay loop
-    while (user.get_health() != 0 && cpu.get_health() != 0) {
+    while (user.get_health() > 0 && cpu.get_health() > 0) {
 
         std::println("Player's turn!");
         remaining_actions = 2;
 
-        while (remaining_actions > 0) {
+        while (remaining_actions > 0 && cpu.get_health() > 0 && user.get_health() > 0) {
             std::print("Remaining actions: {}/2\nPlease select one of the following actions:\n[1] Attack\n[2] Buff\n[3] Heal\n[4] Check\n[5] End turn\n[-1] Exit Game\n\n>>> ", remaining_actions);
-            std::cin >> user_input; // TODO: Add input sanitisation/validation
+            while (!(std::cin >> user_input)) {
+                std::cout << "Invalid input, please try again.\n>>> ";
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            }
             player_action = static_cast<PlayerAction>(user_input);
 
             if (player_action == PlayerAction::Quit) {
@@ -61,6 +66,8 @@ int main() {
 
             do_action(player_action, user, cpu, &remaining_actions);
         }
+
+        if (cpu.get_health() == 0) break;
 
         std::cout << std::endl;
         sleep(1000);

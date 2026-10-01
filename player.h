@@ -5,12 +5,12 @@
 #include <print>
 
 enum class PlayerAction {
-    Quit  =     -1,
-    Attack      = 1,
-    Buff        = 2,
-    Heal        = 3,
-    CheckStats  = 4,
-    EndTurn     = 5
+    Quit        =  -1,
+    Attack      =   1,
+    Buff        =   2,
+    Heal        =   3,
+    CheckStats  =   4,
+    EndTurn     =   5
 };
 
 class Player {
@@ -23,6 +23,7 @@ class Player {
 
     private:
         std::string     name;
+
         int             max_health;
         int             health;
         int             damage;
