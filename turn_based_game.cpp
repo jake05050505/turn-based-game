@@ -65,6 +65,7 @@ int main() {
             }
 
             do_action(player_action, user, cpu, &remaining_actions);
+            sleep(500);
         }
 
         if (cpu.get_health() == 0) break;
@@ -78,6 +79,7 @@ int main() {
             player_action = static_cast<PlayerAction>(1 + rand() % 3);
             think();
             do_action(player_action, cpu, user, &remaining_actions);
+            sleep(500);
         }
 
         std::cout << std::endl;
